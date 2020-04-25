@@ -121,7 +121,7 @@ export default function Home({navigation}) {
                 </View>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ToDo',  { type: 'work'})}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('ToDo',  { type: 'work'})}>
                 <View
                 style={styles.cardStyles}>
                 <View style={styles.cardAvatarStyles}>
@@ -137,7 +137,7 @@ export default function Home({navigation}) {
                     />
                 </View>
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             </ScrollView>
         </LinearGradient>
         </View>

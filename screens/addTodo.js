@@ -11,23 +11,25 @@ export default function Todo({route, navigation}) {
     
     const addTodo = () => {
         const {params: { todoType}} = route;
-        firebase
-        .database()
-        .ref(`todo/${todoType}/${route.params.todosLength ? route.params.todosLength : 0}`)
-        .update({
-            id: route.params.todosLength ? route.params.todosLength : 0,
-            content: todo,
-            checked: false          
-        })
-        .then(data => {
-          //success callback
-          console.log("data ", data);
-          navigation.navigate('ToDo', {focus: true});
-        })
-        .catch(error => {
-          //error callback
-          console.log("error ", error);
-        });
+        if(todo !== '') {
+          firebase
+          .database()
+          .ref(`todo/${todoType}/${route.params.todosLength ? route.params.todosLength : 0}`)
+          .update({
+              id: route.params.todosLength ? route.params.todosLength : 0,
+              content: todo,
+              checked: false          
+          })
+          .then(data => {
+            //success callback
+            console.log("data ", data);
+            navigation.navigate('ToDo', {focus: true});
+          })
+          .catch(error => {
+            //error callback
+            console.log("error ", error);
+          });
+        }
     }
 
   return (

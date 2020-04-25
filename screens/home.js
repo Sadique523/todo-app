@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {ProgressBar} from 'react-native-paper';
-import { useFocusEffect } from '@react-navigation/native';
 
 import firebase from "firebase";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -22,7 +21,7 @@ export default function Home({navigation}) {
     const [personalCompleted, setPersonalCompleted] = useState(0);
     const [workCompleted, setWorkCompleted] = useState(0);
 
-    useFocusEffect(() => {
+    useEffect(() => {
         let value = {};
         firebase
         .database()
@@ -44,6 +43,32 @@ export default function Home({navigation}) {
             else {
                 setPersonalTodosList([]);
                 setPersonalCompleted(0);
+            }
+        });
+      }, []);
+
+      useEffect(() => {
+        let value = {};
+        firebase
+        .database()
+        .ref(`todo/work`)
+        .once("value", function(snapshot) {
+            value = snapshot.val();
+            let array = [];
+            if (value) {
+              Object.keys(value).forEach(item => array.push(value[item]));
+              setWorkTodosList(array);
+              let checked = 0;
+              array.forEach(item => {
+                if(item.checked) {
+                  checked++; 
+                }
+              })
+              setWorkCompleted(checked);
+            }
+            else {
+                setWorkTodosList([]);
+                setWorkCompleted(0);
             }
         });
       }, []);
@@ -95,7 +120,7 @@ export default function Home({navigation}) {
                 </View>
                 </View>
             </TouchableOpacity>
-            {/* <TouchableOpacity onPress={() => navigation.navigate('ToDo',  { type: 'work'})}>
+            <TouchableOpacity onPress={() => navigation.navigate('ToDo',  { type: 'work'})}>
                 <View
                 style={styles.cardStyles}>
                 <View style={styles.cardAvatarStyles}>
@@ -111,7 +136,7 @@ export default function Home({navigation}) {
                     />
                 </View>
                 </View>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
             </ScrollView>
         </LinearGradient>
         </View>

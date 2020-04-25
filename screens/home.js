@@ -47,32 +47,6 @@ export default function Home({navigation}) {
             }
         });
       }, []);
-
-      useFocusEffect(() => {
-        let value = {};
-        firebase
-        .database()
-        .ref(`todo/work`)
-        .once("value", function(snapshot) {
-            value = snapshot.val();
-            let array = [];
-            if (value) {
-              Object.keys(value).forEach(item => array.push(value[item]));
-              setWorkTodosList(array);
-              let checked = 0;
-              array.forEach(item => {
-                if(item.checked) {
-                  checked++; 
-                }
-              })
-              setWorkCompleted(checked);
-            }
-            else {
-                setWorkTodosList([]);
-                setWorkCompleted(0);
-            }
-        });
-      }, []);
     
 
     return (

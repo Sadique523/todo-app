@@ -108,16 +108,19 @@ export default function Todo({navigation, route}) {
           </View>
           <View style={styles.todoContainer}>
             <Text style={styles.textStyles}>Today</Text>
-            <View style={styles.todoListContainer}>
-             {todos.map(todo => (
-                    <View style={styles.todoStyles}>
-                      <Checkbox color="#000" status={todo.checked ? 'checked' : 'unchecked'}  onPress={() => filterItems(todo.id, 'check') } />
-                      <Text style={styles.todoTextStyles}>
-                          {todo.content}
-                      </Text>
-                    </View>
-                 
-             ))}
+            
+              <View style={styles.todoListContainer}>
+              {todos.map(todo => (
+                <View style={styles.todoStyles}>
+                  <View style={styles.todoCheckboxStyles}>
+                    <Checkbox color="#000" status={todo.checked ? 'checked' : 'unchecked'}  onPress={() => filterItems(todo.id, 'check') } />
+                    <Text style={styles.todoTextStyles}>
+                        {todo.content}
+                    </Text>
+                  </View>
+                    <Icon name="delete" size={24} color="#F8A05A" onPress={() => filterItems(todo.id, 'delete')}/>
+                  </View>
+              ))}
             </View>
           </View>
         </View>
@@ -177,7 +180,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
+    justifyContent: 'space-between',
     borderBottomColor: '#F8F8F8',
+  },
+  todoCheckboxStyles: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   todoListContainer: {
     marginTop: 20,

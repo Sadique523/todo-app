@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import {ProgressBar} from 'react-native-paper';
 
 import firebase from "firebase";
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 export default function Home({navigation}) {
@@ -21,7 +21,7 @@ export default function Home({navigation}) {
     const [personalCompleted, setPersonalCompleted] = useState(0);
     const [workCompleted, setWorkCompleted] = useState(0);
 
-    useEffect(() => {
+    useFocusEffect(useCallback(() => {
         let value = {};
         firebase
         .database()
@@ -45,9 +45,9 @@ export default function Home({navigation}) {
                 setPersonalCompleted(0);
             }
         });
-      }, []);
+      }, []));
 
-      useEffect(() => {
+      useFocusEffect(useCallback(() => {
         let value = {};
         firebase
         .database()
@@ -71,7 +71,7 @@ export default function Home({navigation}) {
                 setWorkCompleted(0);
             }
         });
-      }, []);
+      }, []));
     
 
     return (
